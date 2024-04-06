@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-
 import styles from "./track.module.scss";
 import { OverallInfo } from "../../types/overall";
-import { Location } from "../../types/location";
 import url_map from "../../constants/maps";
 import useSessionInfo from "../../hook/useSessionInfo";
 
 const TrackConditions = () => {
-  const [ws, setWs] = useState<any>();
-  const [mensagemRecebida, setMensagemRecebida] = useState<Location>();
+  //   const [ws, setWs] = useState<any>();
+  //   const [mensagemRecebida, setMensagemRecebida] = useState<Location>();
   const session: OverallInfo = useSessionInfo();
   const weather = session?.weather;
   // const wsUrl = "ws://localhost:8080/";

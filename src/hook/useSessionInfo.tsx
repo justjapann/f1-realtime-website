@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useQueries } from "@tanstack/react-query";
 import { LapInfo } from "../types/lapInfo";
@@ -6,8 +7,11 @@ import { Position } from "../types/position";
 import { Weather } from "../types/weather";
 import { RaceInfo } from "../types/raceInfo";
 import { SessionInfo } from "../types/session";
+import { OverallInfo } from "../types/overall";
+import { useState } from "react";
 
-const useSessionInfo = () => {
+const useSessionInfo: any = () => {
+  const [objeto, setObjeto] = useState<OverallInfo>();
   const [
     driverQuery,
     positionQuery,
@@ -120,7 +124,7 @@ const useSessionInfo = () => {
   const fastestLaps: LapInfo[] = [];
 
   newDriverList.forEach((piloto) => {
-    let fastLap: any = null;
+    let fastLap: LapInfo = null;
     piloto.forEach((lap) => {
       if (
         lap.lap_duration !== null &&
@@ -145,7 +149,7 @@ const useSessionInfo = () => {
 
   const newPositionList = position_list.map((driverNumber) => {
     return positionQuery.data.filter(
-      (object: any) => object.driver_number === driverNumber
+      (object) => object.driver_number === driverNumber
     );
   });
 
@@ -192,13 +196,16 @@ const useSessionInfo = () => {
     // });
   });
 
-  return {
+  const obj = {
     sessionInfo: {
       sessionInfo: sessionInfo,
       circuitInfo: sessionQuery.data[0],
     },
     weather: finalWeather,
   };
+  setObjeto(obj);
+
+  return objeto;
 };
 
 export default useSessionInfo;
