@@ -30,7 +30,7 @@ const LapsInfo = () => {
           </Thead>
 
           <Tbody>
-            {infos?.sessionInfo?.sessionInfo?.map((item: any) => (
+            {infos?.sessionInfo?.sessionInfo?.map((item) => (
               <TableInfo key={item.driver_number} {...item} />
             ))}
           </Tbody>

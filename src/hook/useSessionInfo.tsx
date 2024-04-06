@@ -7,11 +7,8 @@ import { Position } from "../types/position";
 import { Weather } from "../types/weather";
 import { RaceInfo } from "../types/raceInfo";
 import { SessionInfo } from "../types/session";
-import { OverallInfo } from "../types/overall";
-import { useState } from "react";
 
 const useSessionInfo: any = () => {
-  const [objeto, setObjeto] = useState<OverallInfo>();
   const [
     driverQuery,
     positionQuery,
@@ -33,7 +30,7 @@ const useSessionInfo: any = () => {
       },
       {
         queryKey: ["position"],
-        refetchInterval: 1000,
+        refetchInterval: 2000,
         queryFn: () =>
           axios
             .get<Position[]>(
@@ -124,7 +121,7 @@ const useSessionInfo: any = () => {
   const fastestLaps: LapInfo[] = [];
 
   newDriverList.forEach((piloto) => {
-    let fastLap: LapInfo = null;
+    let fastLap: any = null;
     piloto.forEach((lap) => {
       if (
         lap.lap_duration !== null &&
@@ -196,16 +193,13 @@ const useSessionInfo: any = () => {
     // });
   });
 
-  const obj = {
+  return {
     sessionInfo: {
       sessionInfo: sessionInfo,
       circuitInfo: sessionQuery.data[0],
     },
     weather: finalWeather,
   };
-  setObjeto(obj);
-
-  return objeto;
 };
 
 export default useSessionInfo;
