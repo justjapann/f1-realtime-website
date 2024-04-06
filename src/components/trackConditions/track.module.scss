@@ -1,0 +1,24 @@
+.container_trackinfo {
+  display: flex;
+  flex-direction: row;
+  border-top: 4px solid #25262c;
+}
+.trackinfo_texts {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+}
+
+.trackinfo_temps {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 350px;
+  gap: 20px;
+}
+.track_image {
+  max-width: 120px;
+}
+
+.track_title {
+  font-size: 21px;
+}

@@ -1,0 +1,51 @@
+.sector_yellow {
+  background-color: yellow;
+  width: 10px;
+  height: 10px;
+}
+
+.sector_green {
+  background-color: green;
+  width: 10px;
+  height: 10px;
+}
+
+.sector_purple {
+  background-color: purple;
+  width: 10px;
+  height: 10px;
+}
+
+.container_sectors {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.container_head {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  border-left: 1px solid #25262c;
+
+  &:first-child {
+    border-left: transparent;
+  }
+}
+
+.in_pit {
+  color: green;
+}
+
+.out_pit {
+  color: red;
+}
+
+.container_laps_info {
+  padding: 0px 15px;
+}
