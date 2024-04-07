@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { WebSocketServer } from "ws";
 
@@ -5,7 +6,7 @@ const wss = new WebSocketServer({ port: 8080 });
 
 wss.on("connection", function connection(ws) {
   console.log("connection");
-  ws.on("message", function message(data) {
+  ws.on("message", function message(data: any) {
     console.log("received: %s", data);
     const requestData = JSON.parse(data);
     axios
