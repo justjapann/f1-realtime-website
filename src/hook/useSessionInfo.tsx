@@ -20,7 +20,7 @@ const useSessionInfo: any = () => {
     queries: [
       {
         queryKey: ["driver"],
-        refetchInterval: 1000,
+        refetchInterval: 3500,
         queryFn: () =>
           axios
             .get<Driver[]>(
@@ -30,7 +30,7 @@ const useSessionInfo: any = () => {
       },
       {
         queryKey: ["position"],
-        refetchInterval: 2000,
+        refetchInterval: 3500,
         queryFn: () =>
           axios
             .get<Position[]>(
@@ -50,7 +50,7 @@ const useSessionInfo: any = () => {
       },
       {
         queryKey: ["laps"],
-        refetchInterval: 1000,
+        refetchInterval: 3500,
         queryFn: () =>
           axios
             .get<LapInfo[]>("https://api.openf1.org/v1/laps?session_key=latest")
@@ -58,7 +58,7 @@ const useSessionInfo: any = () => {
       },
       {
         queryKey: ["race"],
-        refetchInterval: 1000,
+        refetchInterval: 3500,
         queryFn: () =>
           axios
             .get<RaceInfo[]>(
@@ -68,7 +68,7 @@ const useSessionInfo: any = () => {
       },
       {
         queryKey: ["session"],
-        refetchInterval: 200,
+        refetchInterval: 3500,
         queryFn: () =>
           axios
             .get<SessionInfo[]>(
@@ -101,16 +101,16 @@ const useSessionInfo: any = () => {
 
   const driver_list: number[] = [];
   lapsQuery?.data?.forEach((object) => {
-    if (!driver_list.includes(object.driver_number ?? 0)) {
-      if (typeof object.driver_number === "number") {
-        driver_list.push(object.driver_number);
+    if (!driver_list?.includes(object?.driver_number ?? 0)) {
+      if (typeof object?.driver_number === "number") {
+        driver_list.push(object?.driver_number);
       }
     }
   });
 
   const newDriverList = driver_list.map((driverNumber) => {
     return lapsQuery?.data?.filter(
-      (object) => object.driver_number === driverNumber
+      (object) => object?.driver_number === driverNumber
     );
   });
 
@@ -124,8 +124,8 @@ const useSessionInfo: any = () => {
     let fastLap: any = null;
     piloto.forEach((lap) => {
       if (
-        lap.lap_duration !== null &&
-        (fastLap === null || lap.lap_duration < fastLap.lap_duration)
+        lap?.lap_duration !== null &&
+        (fastLap === null || lap?.lap_duration < fastLap.lap_duration)
       ) {
         fastLap = lap;
       }
@@ -136,49 +136,49 @@ const useSessionInfo: any = () => {
   });
 
   const position_list: number[] = [];
-  positionQuery.data.forEach((object) => {
-    if (!position_list.includes(object.driver_number ?? 0)) {
-      if (typeof object.driver_number === "number") {
-        position_list.push(object.driver_number);
+  positionQuery?.data?.forEach((object) => {
+    if (!position_list?.includes(object?.driver_number ?? 0)) {
+      if (typeof object?.driver_number === "number") {
+        position_list?.push(object?.driver_number);
       }
     }
   });
 
-  const newPositionList = position_list.map((driverNumber) => {
-    return positionQuery.data.filter(
-      (object) => object.driver_number === driverNumber
+  const newPositionList = position_list?.map((driverNumber) => {
+    return positionQuery?.data?.filter(
+      (object) => object?.driver_number === driverNumber
     );
   });
 
-  const lastLapPositionPerDrive = newPositionList.map(
+  const lastLapPositionPerDrive = newPositionList?.map(
     (newDriver) => newDriver[newDriver.length - 1]
   );
 
-  const finalWeather = weatherQuery.data.at(-1);
+  const finalWeather = weatherQuery?.data?.at(-1);
 
-  lastLapPositionPerDrive.sort((a, b) => a.position - b.position);
+  lastLapPositionPerDrive.sort((a, b) => a?.position - b?.position);
 
-  const sessionInfo = lastLapPositionPerDrive.map((item) => {
-    return lastLapsPerDrive.filter(
-      (number) => number.driver_number === item.driver_number
+  const sessionInfo = lastLapPositionPerDrive?.map((item) => {
+    return lastLapsPerDrive?.filter(
+      (number) => number?.driver_number === item?.driver_number
     )[0];
   });
 
   sessionInfo.forEach((session_info) => {
     fastestLaps.forEach((fast_lap_info) => {
       if (
-        session_info.driver_number === fast_lap_info.driver_number &&
-        session_info.session_key === fast_lap_info.session_key
+        session_info?.driver_number === fast_lap_info?.driver_number &&
+        session_info?.session_key === fast_lap_info?.session_key
       ) {
-        session_info.fast_lap = fast_lap_info.lap_duration;
+        session_info.fast_lap = fast_lap_info?.lap_duration;
       }
     });
-    driverQuery.data.forEach((driver_info) => {
+    driverQuery?.data?.forEach((driver_info) => {
       if (
-        session_info.driver_number === driver_info.driver_number &&
-        session_info.session_key === driver_info.session_key
+        session_info?.driver_number === driver_info?.driver_number &&
+        session_info?.session_key === driver_info?.session_key
       ) {
-        session_info.driver_name = driver_info.full_name;
+        session_info.driver_name = driver_info?.full_name;
       }
     });
     // location.forEach((location_info) => {
